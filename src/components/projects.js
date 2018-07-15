@@ -9,7 +9,7 @@ class Projects extends Component {
         pItems = this.props.projects.map( p => {
             // console.log(p);
             return(
-                <ProjectItem key={p.title} pro={p}/>
+                <ProjectItem key={p.id} pro={p}/>
             )
         })
     }
