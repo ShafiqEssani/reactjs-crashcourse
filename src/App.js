@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Projects from './components/projects';
 import AddProject from './components/addProject';
 // import './App.css';
+import uuid from 'uuid';
 
 class App extends Component {
 
@@ -16,14 +17,17 @@ class App extends Component {
     this.setState({
       projects: [
         {
+          id: uuid.v4(),
           title: 'Business Website',
           category: 'Web Design'
         },
         {
+          id: uuid.v4(),
           title: 'Social App',
           category: 'Mobile Dev'
         },
         {
+          id: uuid.v4(),
           title: 'Ecommerce Website',
           category: 'Web Dev'
         }
