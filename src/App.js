@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-import Projects from './components/projects';
-import AddProject from './components/addProject';
+import Projects from './components/Projects';
+import AddProject from './components/AddProject';
+import Todos from './components/Todos';
 // import './App.css';
 import uuid from 'uuid';
+import $ from 'jquery';
 
 class App extends Component {
 
   constructor() {
     super();
     this.state = {
-      projects: []
+      projects: [],
+      todos: []
     }
   }
 
-  componentWillMount() {
+  getProjects() {
     this.setState({
       projects: [
         {
@@ -35,6 +38,31 @@ class App extends Component {
     });
   }
 
+  getTodos() {
+    $.ajax({
+      url: 'https://jsonplaceholder.typicode.com/todos',
+      dataType: 'json',
+      cache: false,
+      success: (data) => {
+        this.setState({todos: data}, () => {
+          console.log('Ye hai State', this.state)
+        })
+      },
+      error: (err) => {
+        console.error("ERRROR", err);
+      }
+    })
+  }
+
+  componentWillMount() {
+    this.getProjects();
+    this.getTodos();
+  }
+
+  // componentDidMount() {
+  //   this.getTodos();
+  // }
+
   handleAdd(project) {
     console.log(project);
     let projects = this.state.projects;
@@ -54,6 +82,8 @@ class App extends Component {
       <div className="App">
         <AddProject add={this.handleAdd.bind(this)}/>
         <Projects onDelete={this.handleDelete.bind(this)} projects={this.state.projects} />
+        <hr/>
+        <Todos todos={this.state.todos}/>
       </div>
     );
   }
